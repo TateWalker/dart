@@ -107,14 +107,17 @@ impl zed::Extension for DartExtension {
         };
 
         let (command, arguments) = if use_fvm {
-            let fvm_path = worktree
-                .which("fvm")
-                .ok_or_else(|| "fvm not found in PATH. Install fvm or set useFvm to false.".to_string())?;
-            (fvm_path, vec![tool.to_string(), "debug_adapter".to_string()])
+            let fvm_path = worktree.which("fvm").ok_or_else(|| {
+                "fvm not found in PATH. Install fvm or set useFvm to false.".to_string()
+            })?;
+            (
+                fvm_path,
+                vec![tool.to_string(), "debug_adapter".to_string()],
+            )
         } else {
-            let tool_path = worktree
-                .which(tool)
-                .ok_or_else(|| format!("{tool} not found in PATH. Install from dart.dev or flutter.dev."))?;
+            let tool_path = worktree.which(tool).ok_or_else(|| {
+                format!("{tool} not found in PATH. Install from dart.dev or flutter.dev.")
+            })?;
             (tool_path, vec!["debug_adapter".to_string()])
         };
 
