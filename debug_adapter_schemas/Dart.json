@@ -41,7 +41,7 @@
     },
     "useFvm": {
       "type": "boolean",
-      "description": "Weather to use fvm to run the Dart/Flutter program"
+      "description": "Whether to use fvm to run the Dart/Flutter program"
     },
     "args": {
       "type": "array",
@@ -51,8 +51,35 @@
       },
       "default": []
     },
-    "device_id": {
+    "toolArgs": {
+      "type": "array",
+      "description": "Arguments passed to the Flutter/Dart tool (e.g. --flavor, -d chrome).",
+      "items": {
+        "type": "string"
+      },
+      "default": []
+    },
+    "env": {
+      "type": "object",
+      "description": "Environment variables to set when launching the debug adapter.",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "flutterMode": {
       "type": "string",
+      "enum": [
+        "debug",
+        "profile",
+        "release",
+        "test"
+      ],
+      "description": "The Flutter mode to use.",
+      "default": "debug"
+    },
+    "deviceId": {
+      "type": "string",
+      "description": "The device to launch on, passed to the Flutter tool as `-d <deviceId>`. Ignored if toolArgs already contains -d/--device-id. If unset, Flutter auto-picks a device.",
       "examples": [
         "chrome",
         "edge",
